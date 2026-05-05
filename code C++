@@ -1,0 +1,133 @@
+#include <stdio.h>
+#include <math.h>
+
+long long factorial(int n){
+    if (n<0)return -1;
+    if (n==0 || n==1) return 1;
+    long long result = 1;
+    for(int i=2; i<=n; i++)
+        result *= i;
+    return result;
+}
+void printMenu(){
+    printf("\n===Калькулятор===\n");
+    printf("1. Базовые опции (+, -, *, /)\n");
+    printf("2. Квадратный корень (sqrt)\n");
+    printf("3. Корень n-й степени\n");
+    printf("4. Степень (pow)\n");
+    printf("5. Факториал (n!)\n");
+    printf("6. Логарифм натуральный (ln)\n");
+    printf("7. Логарифм десятичый (log10)\n");
+    printf("8. Синус (sin)\n");
+    printf("9. Косинус (cos)\n");
+    printf("10. Выход\n");
+    printf("Выберите действие: ");
+}
+int main(){
+    int choice;
+    
+    while(1){
+        printMenu();
+        scanf("%d", &choice);
+        if (choice==0){
+            printf("До свидания!\n");
+            break;
+        }
+        double a, b;
+        switch(choice){
+            case 1:{
+                char op;
+                printf("Введите выражение (Например 5 + 5): ");
+                scanf("%lf %c %lf", &a, &op, &b);
+                switch (op){
+                    case '+': printf("Резульат: %.2lf\n", a+b); break;
+                    case '-': printf("Резульат: %.2lf\n", a-b); break;
+                    case '*': printf("Резульат: %.2lf\n", a*b); break;
+                    case '/':
+                        if (b!=0)printf("Резульат: %.3lf\n", a/b);
+                        else printf("Ошибка: на ноль делить нельзя!\n");
+                        break;
+                    default: printf("Ошибка: неизвестный оператор\n");
+                }
+                break;
+            }
+            case 2:
+                printf("Введите число: ");
+                scanf("%lf", &a);
+                if (a<0) printf("Ошибка: корель из отрицательного числа\n");
+                else printf("sqrt(%.4lf) = %.4lf\n", a, sqrt(a));
+                break;
+            case 3:
+                printf("Введите число и степень корня: ");
+                scanf("%lf %lf", &a, &b);
+                if(a<0&&fmod(b,2)==0)
+                    printf("Ошибка: чётный корень из отрицательного числа\n");
+                else printf("%.4lf^(1/%.4lf) = %.4lf\n", a, b, pow(a, 1.0/b));
+                break;
+            case 4:
+                printf("Введите основание и показатель степени: ");
+                scanf("%lf %lf", &a, &b);
+                printf("%.4lf ^ %.4lf = %.4lf\n", a, b, pow(a, b));
+                break;
+            case 5:{
+                int n;
+                printf("Введите целое число: ");
+                scanf("%d", &n);
+                long long result = factorial(n);
+                if(result==-1) printf("Ошибка: Факториал отрицательного числа\n");
+                else printf("%d! = %lld\n", n ,result);
+                break;
+            }
+            case 6:
+                printf("Введите число: ");
+                scanf("%lf", &a);
+                if(a<=0) printf("Ошибка: Логарифм из неположительного числа\n");
+                else printf("ln(%.4lf) = %.4lf\n", a, log(a));
+                break;
+            case 7:
+                printf("Введите число: ");
+                scanf("%lf", a);
+                if(a<=0)printf("Ошибка: Логарифм из неположительного числа\n");
+                else printf("log10(%.4lf) = %.4lf\n", a, log10(a));
+                break;
+            case 8:
+                printf("Введите угол в градусах: ");
+                scanf("%lf", a);
+                printf("sin(%.4lf) = %.4lf\n", a, sin(a*M_PI/180.0));
+                break;
+            case 9:
+                printf("Введите угол в градусах: ");
+                scanf("%lf", a);
+                printf("cos(%.4lf) = %.4lf\n", a, cos(a*M_PI/180.0));
+                break;
+            default:
+                printf("Ошибка: неверный выбор!\n");
+        }
+    }
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
